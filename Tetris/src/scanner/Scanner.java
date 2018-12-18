@@ -156,8 +156,13 @@ public class Scanner {
                     TokenTable.add(token);
                     break;
                 case 5: // S5
-                    token.addChar(currentChar);
-                    currentState = 5;
+                    if (alph.ValidateAlphabet(alph.Cm, currentChar)) {
+                        token.addChar(currentChar);
+                        currentState = 4;
+                    } else {
+                        token.addChar(currentChar);
+                        currentState = 6;
+                    }
                     break;
                 case 6: // S6 
                     if (alph.ValidateAlphabet(alph.Cm, currentChar)) {

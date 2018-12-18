@@ -5,6 +5,24 @@
  */
 package cli;
 
+import scanner.Scanner;
+import scanner.Token;
+import scanner.Error;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import static javafx.scene.paint.Color.color;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+
 /**
  *
  * @author josue
@@ -12,10 +30,11 @@ package cli;
 public class Tetris extends javax.swing.JFrame {
 
     /**
-     * Creates new form Tetris
+     * Creates new form FrontEnd
      */
     public Tetris() {
         initComponents();
+        code.setDocument(doc);
     }
 
     /**
@@ -27,21 +46,191 @@ public class Tetris extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        contentPane = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        code = new javax.swing.JTextPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("content"); // NOI18N
+
+        jScrollPane2.setViewportView(code);
+
+        javax.swing.GroupLayout contentPaneLayout = new javax.swing.GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jMenu1.setText("Archivo");
+
+        jMenuItem1.setText("Abrir...");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Guardar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Guardar como...");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Salir");
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Codigo");
+
+        jMenuItem5.setText("Analizar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("Ayuda");
+
+        jMenuItem6.setText("Manual de usuario");
+        jMenu4.add(jMenuItem6);
+
+        jMenuItem7.setText("Manual técnico");
+        jMenu4.add(jMenuItem7);
+
+        jMenuItem8.setText("Acerca de...");
+        jMenu4.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        OpenFile();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        SaveFile();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        SaveFileAs();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    
+    public StyleContext sc = new StyleContext();
+    public DefaultStyledDocument doc = new DefaultStyledDocument(sc);
+    public Scanner scanner = new Scanner();
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        
+        scanner.SetCode(code.getText());
+        scanner.Scan();
+        formatCode();
+        
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    
+    public void formatCode() {
+        Style blue = sc.addStyle("ConstantWidth", null);
+        StyleConstants.setForeground(blue, Color.blue);
+        
+        Style yellow = sc.addStyle("ConstantWidth", null);
+        StyleConstants.setForeground(yellow, Color.orange);
+        
+        Style green = sc.addStyle("ConstantWidth", null);
+        StyleConstants.setForeground(green, Color.green);
+        
+        Style magenta = sc.addStyle("ConstantWidth", null);
+        StyleConstants.setForeground(magenta, Color.magenta);
+        
+        Style cyan = sc.addStyle("ConstantWidth", null);
+        StyleConstants.setForeground(cyan, Color.cyan);
+        
+        Style red = sc.addStyle("ConstantWidth", null);
+        StyleConstants.setForeground(red, Color.red);
+        
+        Style err = sc.addStyle("ConstantWidth", null);
+        StyleConstants.setForeground(err, Color.red);
+        StyleConstants.setUnderline(err, true);
+        StyleConstants.setItalic(err, true);
+        
+        for (Token token : scanner.TokenTable) {
+            if (token.Type == 1) {
+                doc.setCharacterAttributes(token.Offset, token.Length(), blue, true);
+            } else if (token.Type == 2) {
+                doc.setCharacterAttributes(token.Offset, token.Length(), yellow, true);
+            } else if (token.Type == 3) {
+                doc.setCharacterAttributes(token.Offset, token.Length(), green, true);
+            } else if (token.Type == 4) {
+                doc.setCharacterAttributes(token.Offset, token.Length(), cyan, true);
+            } else if (token.Type == 5) {
+                doc.setCharacterAttributes(token.Offset, token.Length(), red, true);
+            } else if (token.Type == 6) {
+                doc.setCharacterAttributes(token.Offset, token.Length(), magenta, true);
+            }
+        }
+        for (Error error : scanner.ErrorTable) {
+            System.out.println(error.Offset);
+            doc.setCharacterAttributes(error.Offset, error.Length(), err, true);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -69,6 +258,9 @@ public class Tetris extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -77,7 +269,110 @@ public class Tetris extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void OpenFile() {
+        //Creamos el objeto JFileChooser
+        JFileChooser fc = new JFileChooser();
+
+//Indicamos lo que podemos seleccionar
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+//Creamos el filtro
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.TRS", "trs");
+
+//Le indicamos el filtro
+        fc.setFileFilter(filtro);
+
+//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
+        int seleccion = fc.showOpenDialog(contentPane);
+
+//Si el usuario, pincha en aceptar
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+            //Seleccionamos el fichero
+            fileCode = fc.getSelectedFile();
+
+            //Ecribe la ruta del fichero seleccionado en el campo de texto
+            code.setText(fileCode.getAbsolutePath());
+            
+            try ( FileReader fr = new FileReader(fileCode)) {
+                String cadena = "";
+                int valor = fr.read();
+                while (valor != -1) {
+                    cadena = cadena + (char) valor;
+                    valor = fr.read();
+                }
+                cadena = cadena.replaceAll("\n\n", " ");
+                code.setText(cadena);
+                scanner.SetCode(cadena);
+                scanner.Scan();
+                formatCode();
+                
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+    
+    private void SaveFile() {
+        if (fileCode != null) {
+            WriteCodeInFile();
+        } else {
+            SaveFileAs();
+        }
+    }
+    
+    private void SaveFileAs() {
+        //Creamos el objeto JFileChooser
+        JFileChooser fc = new JFileChooser();
+        
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.TRS", "trs");
+
+//Le indicamos el filtro
+        fc.setFileFilter(filtro);
+
+//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
+        int seleccion = fc.showSaveDialog(contentPane);
+
+//Si el usuario, pincha en aceptar
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+            //Seleccionamos el fichero
+            fileCode = fc.getSelectedFile();
+            
+            WriteCodeInFile();
+            
+        }
+    }
+    
+    private void WriteCodeInFile() {
+        try ( FileWriter fw = new FileWriter(fileCode)) {
+
+            //Escribimos el texto en el fichero
+            fw.write(code.getText());
+            
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+    
+    private File fileCode;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane code;
+    private javax.swing.JPanel contentPane;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

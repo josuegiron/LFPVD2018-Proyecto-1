@@ -22,7 +22,7 @@ public class Alphabet {
     String[] PV = {"^", "v"};
     String[] Mm = {"<", ">"};
     String[] P = {",", ":", ";"};
-    String[] Cm = {",\""};
+    String[] Cm = {"\""};
     String[] SL = {"\n"};
     Map<Integer, String> ReservedWords = new HashMap<Integer, String>();
     Map<Integer, String[]> Token = new HashMap<Integer, String[]>();
