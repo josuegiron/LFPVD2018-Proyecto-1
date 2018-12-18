@@ -39,6 +39,15 @@ public class Scanner {
         }
     }
 
+    private void ValidatePice(Token token) {
+        if (alph.ValidatePice(token.Lexeme)) {
+            TokenTable.add(token);
+        } else {
+            Error error = new Error(0, token.Row, token.Colum, token.Lexeme, "La palabra no pertenece al lenguaje", token.Offset);
+            ErrorTable.add(error);
+        }
+    }
+    
     public void Scan() {
         currentState = 0;
         currentRow = 1;
@@ -121,7 +130,7 @@ public class Scanner {
                         currentState = 0;
                         index--;
                         currentColum--;
-                        ValidateToken(token);
+                        ValidatePice(token);
                     }
                     break;
                 case 2: // S2 *

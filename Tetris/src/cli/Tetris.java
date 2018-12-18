@@ -174,43 +174,46 @@ public class Tetris extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         SaveFileAs();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-    
+
     public StyleContext sc = new StyleContext();
     public DefaultStyledDocument doc = new DefaultStyledDocument(sc);
     public Scanner scanner = new Scanner();
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        
+
         scanner.SetCode(code.getText());
         scanner.Scan();
         formatCode();
-        
+
     }//GEN-LAST:event_jMenuItem5ActionPerformed
-    
+
     public void formatCode() {
         Style blue = sc.addStyle("ConstantWidth", null);
         StyleConstants.setForeground(blue, Color.blue);
-        
+
         Style yellow = sc.addStyle("ConstantWidth", null);
-        StyleConstants.setForeground(yellow, Color.orange);
-        
+        StyleConstants.setForeground(yellow, Color.yellow);
+
+        Style orange = sc.addStyle("ConstantWidth", null);
+        StyleConstants.setForeground(orange, Color.orange);
+
         Style green = sc.addStyle("ConstantWidth", null);
         StyleConstants.setForeground(green, Color.green);
-        
+
         Style magenta = sc.addStyle("ConstantWidth", null);
         StyleConstants.setForeground(magenta, Color.magenta);
-        
+
         Style cyan = sc.addStyle("ConstantWidth", null);
         StyleConstants.setForeground(cyan, Color.cyan);
-        
+
         Style red = sc.addStyle("ConstantWidth", null);
         StyleConstants.setForeground(red, Color.red);
-        
+
         Style err = sc.addStyle("ConstantWidth", null);
         StyleConstants.setForeground(err, Color.red);
         StyleConstants.setUnderline(err, true);
         StyleConstants.setItalic(err, true);
-        
+
         for (Token token : scanner.TokenTable) {
             if (token.Type == 1) {
                 doc.setCharacterAttributes(token.Offset, token.Length(), blue, true);
@@ -219,11 +222,13 @@ public class Tetris extends javax.swing.JFrame {
             } else if (token.Type == 3) {
                 doc.setCharacterAttributes(token.Offset, token.Length(), green, true);
             } else if (token.Type == 4) {
-                doc.setCharacterAttributes(token.Offset, token.Length(), cyan, true);
+                doc.setCharacterAttributes(token.Offset, token.Length(), magenta, true);
             } else if (token.Type == 5) {
                 doc.setCharacterAttributes(token.Offset, token.Length(), red, true);
             } else if (token.Type == 6) {
-                doc.setCharacterAttributes(token.Offset, token.Length(), magenta, true);
+                doc.setCharacterAttributes(token.Offset, token.Length(), orange, true);
+            } else if (token.Type == 7) {
+                doc.setCharacterAttributes(token.Offset, token.Length(), cyan, true);
             }
         }
         for (Error error : scanner.ErrorTable) {
@@ -269,7 +274,7 @@ public class Tetris extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void OpenFile() {
         //Creamos el objeto JFileChooser
         JFileChooser fc = new JFileChooser();
@@ -294,7 +299,7 @@ public class Tetris extends javax.swing.JFrame {
 
             //Ecribe la ruta del fichero seleccionado en el campo de texto
             code.setText(fileCode.getAbsolutePath());
-            
+
             try ( FileReader fr = new FileReader(fileCode)) {
                 String cadena = "";
                 int valor = fr.read();
@@ -307,13 +312,13 @@ public class Tetris extends javax.swing.JFrame {
                 scanner.SetCode(cadena);
                 scanner.Scan();
                 formatCode();
-                
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
     }
-    
+
     private void SaveFile() {
         if (fileCode != null) {
             WriteCodeInFile();
@@ -321,11 +326,11 @@ public class Tetris extends javax.swing.JFrame {
             SaveFileAs();
         }
     }
-    
+
     private void SaveFileAs() {
         //Creamos el objeto JFileChooser
         JFileChooser fc = new JFileChooser();
-        
+
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.TRS", "trs");
 
 //Le indicamos el filtro
@@ -339,23 +344,23 @@ public class Tetris extends javax.swing.JFrame {
 
             //Seleccionamos el fichero
             fileCode = fc.getSelectedFile();
-            
+
             WriteCodeInFile();
-            
+
         }
     }
-    
+
     private void WriteCodeInFile() {
         try ( FileWriter fw = new FileWriter(fileCode)) {
 
             //Escribimos el texto en el fichero
             fw.write(code.getText());
-            
+
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
-    
+
     private File fileCode;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
