@@ -5,10 +5,14 @@
  */
 package tetris;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author josue
  */
 public class Level {
-    
+    public String Name;
+    public int Code, Goal;
+    public ArrayList<Piece> Pieces;
 }

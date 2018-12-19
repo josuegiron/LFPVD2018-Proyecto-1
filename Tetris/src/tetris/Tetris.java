@@ -14,4 +14,23 @@ import java.util.ArrayList;
 public class Tetris {
     public int DimensionX, DimensionY;
     public ArrayList<Level> Levels;
+    public Tetris(){
+        Levels = new ArrayList<Level>();
+    }
+
+    public int getDimensionX() {
+        return DimensionX;
+    }
+
+    public void setDimensionX(int DimensionX) {
+        this.DimensionX = DimensionX;
+    }
+
+    public int getDimensionY() {
+        return DimensionY;
+    }
+
+    public void setDimensionY(int DimensionY) {
+        this.DimensionY = DimensionY;
+    }
 }

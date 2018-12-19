@@ -60,7 +60,7 @@ public class Alphabet {
         }
         return false;
     }
-    
+
     public boolean ValidatePice(String pice) {
         Iterator it = Pices.keySet().iterator();
         while (it.hasNext()) {
@@ -80,7 +80,17 @@ public class Alphabet {
             if (key.equals(id)) {
                 return Token.get(key);
             }
+        }
+        return null;
+    }
 
+    public String GetReservedWord(int id) {
+        Iterator it = ReservedWords.keySet().iterator();
+        while (it.hasNext()) {
+            Integer key = (Integer) it.next();
+            if (key.equals(id)) {
+                return ReservedWords.get(key);
+            }
         }
         return null;
     }
@@ -94,7 +104,7 @@ public class Alphabet {
         ReservedWords.put(6, "Codigo");
         ReservedWords.put(7, "Meta");
         ReservedWords.put(8, "Piezas");
-        
+
         Pices.put(1, "I");
         Pices.put(2, "J");
         Pices.put(3, "L");

@@ -23,17 +23,18 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import parser.Parser;
 
 /**
  *
  * @author josue
  */
-public class Tetris extends javax.swing.JFrame {
+public class TetrisEditor extends javax.swing.JFrame {
 
     /**
      * Creates new form FrontEnd
      */
-    public Tetris() {
+    public TetrisEditor() {
         initComponents();
         code.setDocument(doc);
     }
@@ -68,7 +69,7 @@ public class Tetris extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tetris Generate");
+        setTitle("Tetris Editor");
         setName("content"); // NOI18N
 
         jScrollPane2.setViewportView(code);
@@ -157,6 +158,11 @@ public class Tetris extends javax.swing.JFrame {
         jMenu3.setText("Ejecutar");
 
         jMenuItem11.setText("Iniciar");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem11);
 
         jMenuBar1.add(jMenu3);
@@ -262,6 +268,11 @@ public class Tetris extends javax.swing.JFrame {
         showMessageDialog(null, "Nombre: Josué Benjamín Girón Ramírez\nCarné: 201318631\nLENGUAJES FORMALES Y DE PROGRAMACION\nVacaiones de Diciembre 2018");
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        scanner.Scan();
+        Parser parser = new Parser(scanner.TokenTable);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     public void formatCode() {
         Style blue = sc.addStyle("ConstantWidth", null);
         StyleConstants.setForeground(blue, Color.blue);
@@ -329,14 +340,18 @@ public class Tetris extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TetrisEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TetrisEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TetrisEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TetrisEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -345,7 +360,7 @@ public class Tetris extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tetris().setVisible(true);
+                new TetrisEditor().setVisible(true);
             }
         });
     }
