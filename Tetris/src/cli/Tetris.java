@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import static javafx.scene.paint.Color.color;
 import javax.swing.JFileChooser;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.MutableAttributeSet;
@@ -57,12 +58,15 @@ public class Tetris extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tetris Generate");
         setName("content"); // NOI18N
 
         jScrollPane2.setViewportView(code);
@@ -125,6 +129,22 @@ public class Tetris extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem5);
 
+        jMenuItem9.setText("Errores");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem9);
+
+        jMenuItem10.setText("Tabla de tokens");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem10);
+
         jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Ayuda");
@@ -184,8 +204,36 @@ public class Tetris extends javax.swing.JFrame {
         scanner.SetCode(code.getText());
         scanner.Scan();
         formatCode();
-
+        if (scanner.ErrorTable != null) {
+            if (scanner.ErrorTable.size() != 0) {
+                new ErrorTable(scanner.ErrorTable).setVisible(true);
+            }
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        if (scanner.ErrorTable != null) {
+            if (scanner.ErrorTable.size() != 0) {
+                new ErrorTable(scanner.ErrorTable).setVisible(true);
+            } else {
+                showMessageDialog(null, "No existen errores...");
+            }
+        } else {
+            showMessageDialog(null, "No se ha compilado el código");
+        }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        if (scanner.TokenTable != null) {
+            if (scanner.TokenTable.size() != 0) {
+                new TokenTable(scanner.TokenTable).setVisible(true);
+            } else {
+                showMessageDialog(null, "La tabla de tokens esta vacía...");
+            }
+        } else {
+            showMessageDialog(null, "No se ha compilado el código");
+        }
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     public void formatCode() {
         Style blue = sc.addStyle("ConstantWidth", null);
@@ -371,6 +419,7 @@ public class Tetris extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -378,6 +427,7 @@ public class Tetris extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

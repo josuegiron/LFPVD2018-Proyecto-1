@@ -68,5 +68,6 @@ public class Error {
 
     public Error() {
     }
-    String Error, Description;
+    
+    public String Error, Description;
 }

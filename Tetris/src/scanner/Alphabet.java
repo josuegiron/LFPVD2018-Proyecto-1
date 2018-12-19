@@ -73,7 +73,7 @@ public class Alphabet {
         return false;
     }
 
-    public String[] getToken(int id) {
+    public String[] GetToken(int id) {
         Iterator it = Token.keySet().iterator();
         while (it.hasNext()) {
             Integer key = (Integer) it.next();

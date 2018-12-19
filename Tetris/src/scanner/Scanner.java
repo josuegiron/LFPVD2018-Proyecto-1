@@ -47,7 +47,7 @@ public class Scanner {
             ErrorTable.add(error);
         }
     }
-    
+
     public void Scan() {
         currentState = 0;
         currentRow = 1;
@@ -98,15 +98,13 @@ public class Scanner {
                     } else {
                         switch (currentChar) {
                             case '\t':
-                                currentState = 0;
-                                System.out.println("TAB");
                             case ' ':
                             case '\b':
                             case '\f':
                             case '\r':
                                 currentState = 0;
-                                currentRow++;
-                                currentColum = 0;
+                                //currentRow++;
+                                //currentColum = 0;
                                 break;
                             case '\n':
                                 currentRow++;
@@ -201,7 +199,7 @@ public class Scanner {
         }
         System.out.println("Errores: ");
         for (Error error : ErrorTable) {
-            System.out.println(error.Error);
+            System.out.println("Error: " + error.Error + " Location: " + error.Row + ", " + error.Colum);
         }
     }
 }
