@@ -3,31 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cli;
+package gui;
 
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import scanner.Alphabet;
 import scanner.Error;
+import scanner.Token;
 
 /**
  *
  * @author josue
  */
-public class ErrorTable extends javax.swing.JFrame {
+public class TokenTable extends javax.swing.JFrame {
 
     /**
      * Creates new form Error
      */
-    public ErrorTable(ArrayList<Error> errorList) {
+    public TokenTable(ArrayList<Token> tokenList) {
         initComponents();
+        Alphabet alph = new Alphabet();
         TableModel model = this.error.getModel();
-        DefaultTableModel errorModel = (DefaultTableModel) model;
+        DefaultTableModel tokenModel = (DefaultTableModel) model;
         int i = 1;
-        for (Error error : errorList) {
-            errorModel.addRow(new Object[]{i, error.Error, error.Row, error.Colum});
+        for (Token token : tokenList) {
+            tokenModel.addRow(new Object[]{i, token.Type, token.Lexeme, alph.GetToken(token.Type)[1], token.Row, token.Colum});
             i++;
         }
 
@@ -46,21 +49,21 @@ public class ErrorTable extends javax.swing.JFrame {
         error = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Errores");
+        setTitle("Tabla de tokens");
 
         error.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "No.", "Error", "Fila", "Columna"
+                "No.", "Token", "Lexema", "Tipo", "Fila", "Columna"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {

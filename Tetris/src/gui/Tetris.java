@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cli;
+package gui;
 
 import scanner.Scanner;
 import scanner.Token;
