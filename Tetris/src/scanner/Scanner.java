@@ -193,13 +193,13 @@ public class Scanner {
             }
 
         }
-        System.out.println("Lexemas: ");
-        for (Token token : TokenTable) {
-            System.out.println("Lexema: " + token.Lexeme + " Location: " + token.Row + ", " + token.Colum);
-        }
-        System.out.println("Errores: ");
-        for (Error error : ErrorTable) {
-            System.out.println("Error: " + error.Error + " Location: " + error.Row + ", " + error.Colum);
-        }
+//        System.out.println("Lexemas: ");
+//        for (Token token : TokenTable) {
+//            System.out.println("Lexema: " + token.Lexeme + " Location: " + token.Row + ", " + token.Colum);
+//        }
+//        System.out.println("Errores: ");
+//        for (Error error : ErrorTable) {
+//            System.out.println("Error: " + error.Error + " Location: " + error.Row + ", " + error.Colum);
+//        }
     }
 }

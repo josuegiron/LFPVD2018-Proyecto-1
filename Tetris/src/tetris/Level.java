@@ -14,5 +14,37 @@ import java.util.ArrayList;
 public class Level {
     public String Name;
     public int Code, Goal;
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public int getGoal() {
+        return Goal;
+    }
+
+    public void setGoal(int Goal) {
+        this.Goal = Goal;
+    }
     public ArrayList<Piece> Pieces;
+
+    public ArrayList<Piece> getPieces() {
+        return Pieces;
+    }
+
+    public void setPieces(ArrayList<Piece> Pieces) {
+        this.Pieces = Pieces;
+    }
 }

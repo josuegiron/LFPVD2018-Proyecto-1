@@ -8,6 +8,7 @@ package scanner;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import javax.swing.RowFilter.Entry;
 
 /**
  *
@@ -29,6 +30,20 @@ public class Alphabet {
     Map<Integer, String[]> Token = new HashMap<Integer, String[]>();
     String[] des;
     private char[] specialChar = {' ', '\t', '\b', '\f', '\r', '\n'};
+
+    public boolean ValidatePosition(String p) {
+        for (String item : PV) {
+            if (item.equals(p)) {
+                return true;
+            }
+        }
+        for (String item : Mm) {
+            if (item.equals(p)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean ValidateAlphabet(String[] alph, char currentChar) {
         String currentCharStr = String.valueOf(currentChar);
@@ -95,6 +110,15 @@ public class Alphabet {
         return null;
     }
 
+    public int GetLetterID(String letter) {
+       for (Map.Entry<Integer, String> entry : Pices.entrySet()) {
+            if (entry.getValue().equals(letter)) {
+                return entry.getKey();
+            }
+        }
+       return 0;
+    }
+
     public Alphabet() {
         ReservedWords.put(1, "Tetris");
         ReservedWords.put(2, "DimensionX");
@@ -113,7 +137,7 @@ public class Alphabet {
         Pices.put(6, "Z");
         Pices.put(7, "T");
 
-        String[] reservada = {"Reservada", "Letra mayuscula, seguidas de letras minusculas que termina o no en Mayuscula"};
+        String[] reservada = {"Palabra reservada", "Letra mayuscula, seguidas de letras minusculas que termina o no en Mayuscula"};
         Token.put(1, reservada);
         String[] numero = {"Numero", "Numero seguidos de numeros"};
         Token.put(2, numero);

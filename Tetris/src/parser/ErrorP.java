@@ -11,7 +11,8 @@ import scanner.*;
  *
  * @author josuegiron
  */
-public class Error {
+public class ErrorP {
+    private Alphabet alph;
     public int ID, Row, Colum, Offset;
     
     public int Length(){
@@ -58,7 +59,7 @@ public class Error {
         this.Description = Description;
     }
 
-    public Error(int ID, int Row, int Colum, String Error, String Description, int Offset) {
+    public ErrorP(int ID, int Row, int Colum, String Error, String Description, int Offset) {
         this.ID = ID;
         this.Row = Row;
         this.Colum = Colum;
@@ -68,8 +69,18 @@ public class Error {
     }
     
 
-    public Error() {
+    public ErrorP() {
     }
     
     public String Error, Description;
+    
+    
+    
+    public void PrintError(int rwID, Token token){
+        System.out.println("Error: se esperaba la palabra reservada" + alph.GetReservedWord(rwID) + " en: " + token.Row + ", " + token.Colum);
+    }
+    
+    public void PrintError(String type, Token token){
+        System.out.println("Error: se esperaba  " + type + " en: " + token.Row + ", " + token.Colum);
+    }
 }
