@@ -20,8 +20,9 @@ import javax.swing.JPanel;
 public class Game extends JPanel {
 
     private static final long serialVersionUID = -8715353373678321308L;
-    private int dimensionX, dimensionY, levelID, level;
+    private int dimensionX, dimensionY, levelID, level, goal, numLevel;
     private String message;
+    private boolean stop;
 
     private final Point[][][] Tetraminos = {
         // I-Piece
@@ -110,7 +111,7 @@ public class Game extends JPanel {
         if (nextPieces.isEmpty()) {
             for (Piece currentPiece : myTetris.Levels.get(levelID).Pieces) {
                 //System.out.println(currentPiece.Type);
-                 nextPieces.add(currentPiece);
+                nextPieces.add(currentPiece);
                 //Collections.shuffle(nextPieces);
             }
 
@@ -176,15 +177,21 @@ public class Game extends JPanel {
             }
         }
         score += 10;
-        if (score >= myTetris.Levels.get(levelID).Goal) {
-            score = 0;
-            level += 1;
+        validateWin();
+    }
+    
+    private void validateWin(){
+        if (score >= goal) {
             levelID += 1;
-            if (myTetris.Levels.size() < level) {
+            level += 1;
+            if (numLevel < level) {
                 message = "!GANASTE CAMPEON!";
-                showMessageDialog(null, "!GANASTE CAMPEON!");
-            }else{
+                //showMessageDialog(null, "!GANASTE CAMPEON!");
+                stop = true;
+            } else {
+                score = 0;
                 nextPieces.clear();
+                goal = myTetris.Levels.get(levelID).Goal;
             }
         }
     }
@@ -287,12 +294,12 @@ public class Game extends JPanel {
         new Thread() {
             @Override
             public void run() {
-                while (true) {
+                while (!game.stop) {
                     try {
-                        Thread.sleep(1000);
                         game.dropDown();
-
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
+                        System.out.println(e);
                     }
                 }
             }
@@ -306,5 +313,7 @@ public class Game extends JPanel {
         levelID = 0;
         level = 1;
         message = "";
+        numLevel = myTetris.Levels.size();
+        stop = false;
     }
 }
