@@ -130,8 +130,8 @@ public class Alphabet {
         ReservedWords.put(8, "Piezas");
 
         Pices.put(0, "I");
-        Pices.put(1, "J");
-        Pices.put(2, "L");
+        Pices.put(1, "L");
+        Pices.put(2, "J");
         Pices.put(3, "O");
         Pices.put(4, "S");
         Pices.put(5, "T");

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JFrame;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JPanel;
 
 public class Game extends JPanel {
@@ -109,7 +110,7 @@ public class Game extends JPanel {
         if (nextPieces.isEmpty()) {
             for (Piece currentPiece : myTetris.Levels.get(levelID).Pieces) {
                 //System.out.println(currentPiece.Type);
-                Collections.addAll(nextPieces, currentPiece);
+                 nextPieces.add(currentPiece);
                 //Collections.shuffle(nextPieces);
             }
 
@@ -176,14 +177,14 @@ public class Game extends JPanel {
         }
         score += 10;
         if (score >= myTetris.Levels.get(levelID).Goal) {
-            myTetris.Levels.remove(levelID);
             score = 0;
             level += 1;
-            System.out.println(myTetris.Levels.size());
-            if (myTetris.Levels.size() == 0) {
+            levelID += 1;
+            if (myTetris.Levels.size() < level) {
                 message = "!GANASTE CAMPEON!";
-                System.out.println("YA GANO ESTE MAJE");
-                this.remove(this);
+                showMessageDialog(null, "!GANASTE CAMPEON!");
+            }else{
+                nextPieces.clear();
             }
         }
     }
@@ -233,7 +234,7 @@ public class Game extends JPanel {
         g.setColor(Color.WHITE);
         g.drawString("Nivel: " + level, 19 * dimensionX, 15);
         g.drawString("Puntos: " + score, 19 * dimensionX, 25);
-        g.drawString(message, 26*dimensionX/2, 25*dimensionY/2 - 25);
+        g.drawString(message, 26 * dimensionX / 2, 25 * dimensionY / 2 - 25);
 
         // Draw the currently falling piece
         drawPiece(g);
@@ -290,6 +291,7 @@ public class Game extends JPanel {
                     try {
                         Thread.sleep(1000);
                         game.dropDown();
+
                     } catch (InterruptedException e) {
                     }
                 }
