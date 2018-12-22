@@ -11,6 +11,7 @@ import scanner.Token;
 import tetris.Level;
 import tetris.Piece;
 import tetris.Tetris;
+import tetris.Game;
 
 /**
  *
@@ -29,7 +30,9 @@ public class Parser {
         alph = new Alphabet();
         myTetris = new Tetris();
         tetris();
-        System.out.println(myTetris.Levels.get(0).Name);
+        Game test = new Game(myTetris);
+        test.Start();
+        //System.out.println(myTetris.Levels.get(0).Pieces.get(0).Type);
     }
 
     private boolean validateToken(String lexeme) {

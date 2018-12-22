@@ -129,13 +129,13 @@ public class Alphabet {
         ReservedWords.put(7, "Meta");
         ReservedWords.put(8, "Piezas");
 
-        Pices.put(1, "I");
-        Pices.put(2, "J");
-        Pices.put(3, "L");
-        Pices.put(4, "O");
-        Pices.put(5, "S");
+        Pices.put(0, "I");
+        Pices.put(1, "J");
+        Pices.put(2, "L");
+        Pices.put(3, "O");
+        Pices.put(4, "S");
+        Pices.put(5, "T");
         Pices.put(6, "Z");
-        Pices.put(7, "T");
 
         String[] reservada = {"Palabra reservada", "Letra mayuscula, seguidas de letras minusculas que termina o no en Mayuscula"};
         Token.put(1, reservada);

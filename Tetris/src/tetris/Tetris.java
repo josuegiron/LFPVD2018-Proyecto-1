@@ -16,6 +16,7 @@ public class Tetris {
     public ArrayList<Level> Levels;
     public Tetris(){
         Levels = new ArrayList<Level>();
+        
     }
 
     public int getDimensionX() {
@@ -32,5 +33,9 @@ public class Tetris {
 
     public void setDimensionY(int DimensionY) {
         this.DimensionY = DimensionY;
+    }
+    
+    public void Play(){
+        
     }
 }
