@@ -269,8 +269,17 @@ public class TetrisEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        scanner.SetCode(code.getText());
         scanner.Scan();
-        Parser parser = new Parser(scanner.TokenTable);
+        formatCode();
+        if (scanner.TokenTable.size() == 0) {
+            showMessageDialog(null, "La tabla de tokens esta vacía...");
+        } else if (scanner.ErrorTable.size() > 0) {
+            new ErrorTable(scanner.ErrorTable).setVisible(true);
+        } else {
+            Parser parser = new Parser(scanner.TokenTable);
+        }
+
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     public void formatCode() {

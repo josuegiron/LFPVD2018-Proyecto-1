@@ -30,8 +30,8 @@ public class Parser {
         alph = new Alphabet();
         myTetris = new Tetris();
         tetris();
-        Game test = new Game(myTetris);
-        test.Start();
+        Game game = new Game(myTetris);
+        game.Start();
         //System.out.println(myTetris.Levels.get(0).Pieces.get(0).Type);
     }
 
@@ -44,10 +44,10 @@ public class Parser {
     }
 
     private boolean validateToken(String[] lexemes) {
-        System.out.println(tokenList.get(0).Lexeme);
+        //System.out.println(tokenList.get(0).Lexeme);
         for (String lexeme : lexemes) {
             if (tokenList.get(0).Lexeme.equals(lexeme)) {
-                System.out.println("SI APARECE");
+                //System.out.println("SI APARECE");
                 return true;
             }
         }
@@ -88,7 +88,6 @@ public class Parser {
             case "nivel":
             case "Nivel":
             case "NIVEL":
-                System.out.println("ACA VOY");
                 niveles();
                 dimensionX();
                 dimensionY();
@@ -96,7 +95,6 @@ public class Parser {
             case "dimensionX":
             case "DimensionX":
             case "DIMENSIONX":
-                System.out.println("ACA MULA");
                 dimensionX();
                 dimensionY();
                 niveles();

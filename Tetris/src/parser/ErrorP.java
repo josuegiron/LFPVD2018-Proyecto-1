@@ -77,10 +77,10 @@ public class ErrorP {
     
     
     public void PrintError(int rwID, Token token){
-        System.out.println("Error: se esperaba la palabra reservada " + alph.GetReservedWord(rwID)[2] + " en: " + token.Row + ", " + token.Colum);
+        System.out.println("Error lexico: se esperaba la palabra reservada " + alph.GetReservedWord(rwID)[2] + " en: " + token.Row + ", " + token.Colum);
     }
     
     public void PrintError(String type, Token token){
-        System.out.println("Error: se esperaba  " + type + " en: " + token.Row + ", " + token.Colum);
+        System.out.println("Error lexico: se esperaba  " + type + " en: " + token.Row + ", " + token.Colum);
     }
 }

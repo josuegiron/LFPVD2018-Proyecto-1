@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 public class Game extends JPanel {
 
     private static final long serialVersionUID = -8715353373678321308L;
-    private int dimensionX, dimensionY, levelID, level, goal, numLevel;
+    private int dimensionX, dimensionY, levelID, total, goal, numLevel;
     private String message;
     private boolean stop;
 
@@ -197,6 +197,7 @@ public class Game extends JPanel {
             }
         }
         score += 10;
+        total += 10;
         validateWin();
     }
 
@@ -204,11 +205,9 @@ public class Game extends JPanel {
     private void validateWin() {
         if (score >= goal) {
             levelID += 1;
-            level += 1;
             if (numLevel == levelID) {
-                showMessageDialog(null, "!GANASTE CAMPEON!");
+                showMessageDialog(null, "!GANASTE CAMPEON!\nPuntuacion total: "+total);
                 levelID = 0;
-                level = 1;
                 score = 0;
                 init();
             } else {
@@ -276,7 +275,7 @@ public class Game extends JPanel {
     private Tetris myTetris;
 
     public void Start() {
-        System.out.println(myTetris.Levels.get(0).Pieces.get(0).Type);
+        System.out.println("Play game...");
         JFrame f = new JFrame("Tetris");
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         f.setSize(26 * dimensionX + 10, 26 * dimensionY + 25);
@@ -321,11 +320,12 @@ public class Game extends JPanel {
             @Override
             public void run() {
 
-                while (true) {
+                while (!game.stop) {
                     try {
-//                        if (game.rotation == 0) {
-//                            game.rotate(game.currentPiece.Orientation);
-//                        }
+                        if (!f.isVisible()) {
+                            game.stop = true;
+                            
+                        }
                         game.dropDown();
                         Thread.sleep(1000);
 
@@ -333,6 +333,7 @@ public class Game extends JPanel {
                         System.out.println(e);
                     }
                 }
+                System.out.println("Close game...");
             }
         }.start();
     }
@@ -342,7 +343,7 @@ public class Game extends JPanel {
         dimensionX = myTetris.DimensionX + 2;
         dimensionY = myTetris.DimensionY + 1;
         levelID = 0;
-        level = 1;
+        total = 0;
         message = "";
         numLevel = myTetris.Levels.size();
         stop = false;
