@@ -127,6 +127,12 @@ public class Game extends JPanel {
     private boolean collidesAt(int x, int y, int rotation) {
         for (Point p : Tetraminos[currentPiece.Type][rotation]) {
             if (well[p.x + x][p.y + y] != Color.BLACK) {
+                if (y == 0) {
+                    showMessageDialog(null, "¡Perdiste!\n :(");
+                    init();
+                    score = 0;
+                    
+                }
                 return true;
             }
         }
@@ -194,6 +200,7 @@ public class Game extends JPanel {
         validateWin();
     }
 
+    
     private void validateWin() {
         if (score >= goal) {
             levelID += 1;
@@ -202,7 +209,8 @@ public class Game extends JPanel {
                 showMessageDialog(null, "!GANASTE CAMPEON!");
                 levelID = 0;
                 level = 1;
-                clearAll();
+                score = 0;
+                init();
             } else {
                 score = 0;
                 nextPieces.clear();
@@ -231,23 +239,7 @@ public class Game extends JPanel {
         }
     }
 
-    public void clearAll() {
-        boolean gap;
-
-        for (int j = dimensionY - 2; j > 0; j--) {
-            gap = false;
-            for (int i = 1; i < dimensionX - 1; i++) {
-                if (well[i][j] != Color.BLACK) {
-                    gap = true;
-                    break;
-                }
-            }
-            if (gap) {
-                deleteRow(j);
-                j += 1;
-            }
-        }
-    }
+    
 
     // Draw the falling piece
     private void drawPiece(Graphics g) {
@@ -272,6 +264,7 @@ public class Game extends JPanel {
 
         // Display the score
         g.setColor(Color.WHITE);
+        g.drawString(message, 26* dimensionX/3, dimensionY/2);
         g.drawString("" + myTetris.Levels.get(levelID).getName(), 15 * dimensionX, 10);
         g.drawString("Codigo: " + myTetris.Levels.get(levelID).getCode(), 15 * dimensionX, 25);
         g.drawString("Puntos: " + score, 15 * dimensionX, 40);
@@ -299,6 +292,7 @@ public class Game extends JPanel {
             }
 
             public void keyPressed(KeyEvent e) {
+                game.message = "";
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
                         game.rotate(+1);
