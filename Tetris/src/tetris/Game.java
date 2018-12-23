@@ -11,7 +11,9 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JFrame;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -179,8 +181,8 @@ public class Game extends JPanel {
         score += 10;
         validateWin();
     }
-    
-    private void validateWin(){
+
+    private void validateWin() {
         if (score >= goal) {
             levelID += 1;
             level += 1;
@@ -315,5 +317,8 @@ public class Game extends JPanel {
         message = "";
         numLevel = myTetris.Levels.size();
         stop = false;
+        Collections.sort(this.myTetris.Levels);
     }
+    
+    
 }

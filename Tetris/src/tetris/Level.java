@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author josue
  */
-public class Level {
+public class Level implements Comparable<Level> {
     public String Name;
     public int Code, Goal;
 
@@ -46,5 +46,16 @@ public class Level {
 
     public void setPieces(ArrayList<Piece> Pieces) {
         this.Pieces = Pieces;
+    }
+
+    @Override
+    public int compareTo(Level level) {
+        if (Code < level.Code) {
+                return -1;
+            }
+            if (Code > level.Code) {
+                return 1;
+            }
+            return 0;
     }
 }

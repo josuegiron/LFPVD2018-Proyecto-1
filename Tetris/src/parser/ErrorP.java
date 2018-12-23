@@ -12,7 +12,7 @@ import scanner.*;
  * @author josuegiron
  */
 public class ErrorP {
-    private Alphabet alph;
+    private Alphabet alph = new Alphabet();
     public int ID, Row, Colum, Offset;
     
     public int Length(){
@@ -77,7 +77,7 @@ public class ErrorP {
     
     
     public void PrintError(int rwID, Token token){
-        System.out.println("Error: se esperaba la palabra reservada" + alph.GetReservedWord(rwID) + " en: " + token.Row + ", " + token.Colum);
+        System.out.println("Error: se esperaba la palabra reservada " + alph.GetReservedWord(rwID)[2] + " en: " + token.Row + ", " + token.Colum);
     }
     
     public void PrintError(String type, Token token){

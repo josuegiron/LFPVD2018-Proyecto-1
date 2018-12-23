@@ -394,10 +394,12 @@ public class TetrisEditor extends javax.swing.JFrame {
                 String cadena = "";
                 int valor = fr.read();
                 while (valor != -1) {
-                    cadena = cadena + (char) valor;
+                    if (valor != 13) {
+                        cadena = cadena + (char) valor;
+                    }
                     valor = fr.read();
+
                 }
-                cadena = cadena.replaceAll("\n\n", " ");
                 code.setText(cadena);
                 scanner.SetCode(cadena);
                 scanner.Scan();

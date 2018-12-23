@@ -43,6 +43,18 @@ public class Parser {
         return false;
     }
 
+    private boolean validateToken(String[] lexemes) {
+        System.out.println(tokenList.get(0).Lexeme);
+        for (String lexeme : lexemes) {
+            if (tokenList.get(0).Lexeme.equals(lexeme)) {
+                System.out.println("SI APARECE");
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private boolean validateTokenType(int tokenID) {
         //System.out.println(tokenList.get(0).Lexeme);
         if (tokenList.get(0).Type == tokenID) {
@@ -72,9 +84,24 @@ public class Parser {
         } else {
             er.PrintError("[", tokenList.get(0));
         }
-        dimensionX();
-        dimensionY();
-        niveles();
+        switch (tokenList.get(0).Lexeme) {
+            case "nivel":
+            case "Nivel":
+            case "NIVEL":
+                System.out.println("ACA VOY");
+                niveles();
+                dimensionX();
+                dimensionY();
+                break;
+            case "dimensionX":
+            case "DimensionX":
+            case "DIMENSIONX":
+                System.out.println("ACA MULA");
+                dimensionX();
+                dimensionY();
+                niveles();
+                break;
+        }
         if (!validateToken("]")) {
             er.PrintError("]", tokenList.get(0));
         } else {
@@ -141,7 +168,9 @@ public class Parser {
 
     private void niveles() {
         switch (tokenList.get(0).Lexeme) {
+            case "nivel":
             case "Nivel":
+            case "NIVEL":
                 nivel();
                 break;
             default:
@@ -263,7 +292,7 @@ public class Parser {
     private ArrayList<Piece> pieces() {
         ArrayList<Piece> pieces = new ArrayList<Piece>();
         if (!validateToken(alph.GetReservedWord(8))) {
-           er.PrintError(8, tokenList.get(0));
+            er.PrintError(8, tokenList.get(0));
         } else {
             tokenList.remove(0);
         }
@@ -282,7 +311,7 @@ public class Parser {
             tokenList.remove(0);
             return pieces;
         } else {
-           er.PrintError("]", tokenList.get(0));
+            er.PrintError("]", tokenList.get(0));
         }
         return pieces;
     }
@@ -296,13 +325,13 @@ public class Parser {
     private void letter(ArrayList<Piece> pieces) {
         Piece piece = new Piece();
         if (!alph.ValidatePice(tokenList.get(0).Lexeme)) {
-           er.PrintError("un nombre de pieza valido", tokenList.get(0));
+            er.PrintError("un nombre de pieza valido", tokenList.get(0));
         } else {
             piece.setType(alph.GetLetterID(tokenList.get(0).Lexeme));
             tokenList.remove(0);
         }
         if (!validateToken(",")) {
-           er.PrintError(",", tokenList.get(0));
+            er.PrintError(",", tokenList.get(0));
         } else {
             tokenList.remove(0);
         }
@@ -311,6 +340,11 @@ public class Parser {
             tokenList.remove(0);
         } else {
             er.PrintError("una posicion valida", tokenList.get(0));
+        }
+        if (!validateToken(";")) {
+            er.PrintError(";", tokenList.get(0));
+        } else {
+            tokenList.remove(0);
         }
         pieces.add(piece);
         letters(pieces);

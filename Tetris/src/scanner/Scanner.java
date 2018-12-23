@@ -42,7 +42,10 @@ public class Scanner {
     private void ValidatePice(Token token) {
         if (alph.ValidatePice(token.Lexeme)) {
             TokenTable.add(token);
-        } else {
+        } else if (alph.ValidateAlphabet(alph.PV, token.Lexeme.charAt(0))){
+            token.Type = 6;
+            TokenTable.add(token);
+        }else{
             Error error = new Error(0, token.Row, token.Colum, token.Lexeme, "La palabra no pertenece al lenguaje", token.Offset);
             ErrorTable.add(error);
         }
@@ -67,7 +70,7 @@ public class Scanner {
 
                     token.Offset = index;
 
-                    if (alph.ValidateAlphabet(alph.LM, currentChar)) {
+                    if (alph.ValidateAlphabet(alph.L, currentChar)) {
                         token.addChar(currentChar);
                         token.setType(1); //    RESERVADA
                         currentState = 1;
@@ -103,8 +106,8 @@ public class Scanner {
                             case '\f':
                             case '\r':
                                 currentState = 0;
-                                //currentRow++;
-                                //currentColum = 0;
+//                                currentRow++;
+//                                currentColum = 0;
                                 break;
                             case '\n':
                                 currentRow++;
@@ -121,7 +124,7 @@ public class Scanner {
                     break;
 
                 case 1: // S1 *
-                    if (alph.ValidateAlphabet(alph.Lm, currentChar)) {
+                    if (alph.ValidateAlphabet(alph.L, currentChar)) {
                         token.addChar(currentChar);
                         currentState = 2;
                     } else {
@@ -132,12 +135,9 @@ public class Scanner {
                     }
                     break;
                 case 2: // S2 *
-                    if (alph.ValidateAlphabet(alph.Lm, currentChar)) {
+                    if (alph.ValidateAlphabet(alph.L, currentChar)) {
                         token.addChar(currentChar);
                         currentState = 2;
-                    } else if (alph.ValidateAlphabet(alph.LM, currentChar)) {
-                        token.addChar(currentChar);
-                        currentState = 4;
                     } else {
                         currentState = 0;
                         index--;

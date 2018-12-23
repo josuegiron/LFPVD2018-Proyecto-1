@@ -16,16 +16,16 @@ import javax.swing.RowFilter.Entry;
  */
 public class Alphabet {
 
-    String[] Lm = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "\\u00f1", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-    String[] LM = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "\\u00d1", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+    String[] L = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "\\u00d1", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "\\u00f1", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+    String[] LM = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "\\u00d1", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",};
     String[] N = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
     String[] B = {"{", "}", "[", "]"};
-    String[] PV = {"^", "v"};
+    String[] PV = {"^", "v", "V"};
     String[] Mm = {"<", ">"};
     String[] P = {",", ":", ";"};
     String[] Cm = {"\""};
     String[] SL = {"\n"};
-    Map<Integer, String> ReservedWords = new HashMap<Integer, String>();
+    Map<Integer, String[]> ReservedWords = new HashMap<Integer, String[]>();
     Map<Integer, String> Pices = new HashMap<Integer, String>();
     Map<Integer, String[]> Token = new HashMap<Integer, String[]>();
     String[] des;
@@ -68,8 +68,10 @@ public class Alphabet {
         Iterator it = ReservedWords.keySet().iterator();
         while (it.hasNext()) {
             Integer key = (Integer) it.next();
-            if (ReservedWords.get(key).equals(lexeme)) {
-                return true;
+            for (String res : ReservedWords.get(key)) {
+                if (res.equals(lexeme)) {
+                    return true;
+                }
             }
 
         }
@@ -99,35 +101,38 @@ public class Alphabet {
         return null;
     }
 
-    public String GetReservedWord(int id) {
-        Iterator it = ReservedWords.keySet().iterator();
-        while (it.hasNext()) {
-            Integer key = (Integer) it.next();
-            if (key.equals(id)) {
-                return ReservedWords.get(key);
-            }
-        }
-        return null;
+    public String[] GetReservedWord(int id) {
+
+        return ReservedWords.get(id);
+
     }
 
     public int GetLetterID(String letter) {
-       for (Map.Entry<Integer, String> entry : Pices.entrySet()) {
+        for (Map.Entry<Integer, String> entry : Pices.entrySet()) {
             if (entry.getValue().equals(letter)) {
                 return entry.getKey();
             }
         }
-       return 0;
+        return 0;
     }
 
     public Alphabet() {
-        ReservedWords.put(1, "Tetris");
-        ReservedWords.put(2, "DimensionX");
-        ReservedWords.put(3, "DimensionY");
-        ReservedWords.put(4, "Nivel");
-        ReservedWords.put(5, "Nombre");
-        ReservedWords.put(6, "Codigo");
-        ReservedWords.put(7, "Meta");
-        ReservedWords.put(8, "Piezas");
+        String[] tetris = {"tetris", "Tetris", "TETRIS"};
+        ReservedWords.put(1, tetris);
+        String[] dimensionx = {"dimensionx", "DimensionX", "DIMENSIONX"};
+        ReservedWords.put(2, dimensionx);
+        String[] dimensiony = {"dimensiony", "DimensionY", "DIMENSIONY"};
+        ReservedWords.put(3, dimensiony);
+        String[] nivel = {"nivel", "Nivel", "NIVEL"};
+        ReservedWords.put(4, nivel);
+        String[] nombre = {"nombre", "Nombre", "NOMBRE"};
+        ReservedWords.put(5, nombre);
+        String[] codigo = {"codigo", "Codigo", "CODIGO"};
+        ReservedWords.put(6, codigo);
+        String[] meta = {"meta", "Meta", "META"};
+        ReservedWords.put(7, meta);
+        String[] piezas = {"piezas", "Piezas", "PIEZAS"};
+        ReservedWords.put(8, piezas);
 
         Pices.put(0, "I");
         Pices.put(1, "L");
