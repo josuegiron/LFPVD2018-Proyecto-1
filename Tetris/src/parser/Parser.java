@@ -355,13 +355,14 @@ public class Parser {
             case "^":
                 return 1;
             case "V":
-                return 2;
-            case "<":
+            case "v":
                 return 3;
-            case ">":
+            case "<":
                 return 4;
+            case ">":
+                return 2;
             default:
-                return 0;
+                return 1;
         }
     }
 }

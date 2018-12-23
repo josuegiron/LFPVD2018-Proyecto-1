@@ -119,6 +119,7 @@ public class Game extends JPanel {
 
         }
         currentPiece = nextPieces.get(0);
+        rotateIn(currentPiece.Orientation);
         nextPieces.remove(0);
     }
 
@@ -142,6 +143,17 @@ public class Game extends JPanel {
             rotation = newRotation;
         }
         repaint();
+    }
+    
+    // Rotate the piece clockwise or counterclockwise
+    public void rotateIn(int i) {
+        int newRotation = (rotation + i) % 4;
+        if (newRotation < 0) {
+            newRotation = 3;
+        }
+        if (!collidesAt(pieceOrigin.x, pieceOrigin.y, newRotation)) {
+            rotation = newRotation;
+        }
     }
 
     // Move the piece left or right
@@ -241,7 +253,7 @@ public class Game extends JPanel {
 
         // Display the score
         g.setColor(Color.WHITE);
-        g.drawString("Nivel: " + level, 19 * dimensionX, 15);
+        g.drawString("" + myTetris.Levels.get(levelID).getName(), 19 * dimensionX, 15);
         g.drawString("Puntos: " + score, 19 * dimensionX, 25);
         g.drawString(message, 26 * dimensionX / 2, 25 * dimensionY / 2 - 25);
 
@@ -270,7 +282,7 @@ public class Game extends JPanel {
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
-                        game.rotate(-1);
+                        game.rotate(+1);
                         break;
                     case KeyEvent.VK_DOWN:
                         //game.rotate(+1);
@@ -296,10 +308,15 @@ public class Game extends JPanel {
         new Thread() {
             @Override
             public void run() {
+
                 while (!game.stop) {
                     try {
+//                        if (game.rotation == 0) {
+//                            game.rotate(game.currentPiece.Orientation);
+//                        }
                         game.dropDown();
                         Thread.sleep(1000);
+                        
                     } catch (InterruptedException e) {
                         System.out.println(e);
                     }
@@ -319,6 +336,5 @@ public class Game extends JPanel {
         stop = false;
         Collections.sort(this.myTetris.Levels);
     }
-    
-    
+
 }
