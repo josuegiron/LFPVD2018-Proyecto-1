@@ -144,7 +144,7 @@ public class Game extends JPanel {
         }
         repaint();
     }
-    
+
     // Rotate the piece clockwise or counterclockwise
     public void rotateIn(int i) {
         int newRotation = (rotation + i) % 4;
@@ -198,10 +198,11 @@ public class Game extends JPanel {
         if (score >= goal) {
             levelID += 1;
             level += 1;
-            if (numLevel < level) {
-                message = "!GANASTE CAMPEON!";
-                //showMessageDialog(null, "!GANASTE CAMPEON!");
-                stop = true;
+            if (numLevel == levelID) {
+                showMessageDialog(null, "!GANASTE CAMPEON!");
+                levelID = 0;
+                level = 1;
+                clearAll();
             } else {
                 score = 0;
                 nextPieces.clear();
@@ -224,6 +225,24 @@ public class Game extends JPanel {
                 }
             }
             if (!gap) {
+                deleteRow(j);
+                j += 1;
+            }
+        }
+    }
+
+    public void clearAll() {
+        boolean gap;
+
+        for (int j = dimensionY - 2; j > 0; j--) {
+            gap = false;
+            for (int i = 1; i < dimensionX - 1; i++) {
+                if (well[i][j] != Color.BLACK) {
+                    gap = true;
+                    break;
+                }
+            }
+            if (gap) {
                 deleteRow(j);
                 j += 1;
             }
@@ -253,9 +272,9 @@ public class Game extends JPanel {
 
         // Display the score
         g.setColor(Color.WHITE);
-        g.drawString("" + myTetris.Levels.get(levelID).getName(), 19 * dimensionX, 15);
-        g.drawString("Puntos: " + score, 19 * dimensionX, 25);
-        g.drawString(message, 26 * dimensionX / 2, 25 * dimensionY / 2 - 25);
+        g.drawString("" + myTetris.Levels.get(levelID).getName(), 15 * dimensionX, 10);
+        g.drawString("Codigo: " + myTetris.Levels.get(levelID).getCode(), 15 * dimensionX, 25);
+        g.drawString("Puntos: " + score, 15 * dimensionX, 40);
 
         // Draw the currently falling piece
         drawPiece(g);
@@ -285,7 +304,6 @@ public class Game extends JPanel {
                         game.rotate(+1);
                         break;
                     case KeyEvent.VK_DOWN:
-                        //game.rotate(+1);
                         game.dropDown();
                         break;
                     case KeyEvent.VK_LEFT:
@@ -309,14 +327,14 @@ public class Game extends JPanel {
             @Override
             public void run() {
 
-                while (!game.stop) {
+                while (true) {
                     try {
 //                        if (game.rotation == 0) {
 //                            game.rotate(game.currentPiece.Orientation);
 //                        }
                         game.dropDown();
                         Thread.sleep(1000);
-                        
+
                     } catch (InterruptedException e) {
                         System.out.println(e);
                     }
